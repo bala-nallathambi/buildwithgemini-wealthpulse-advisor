@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WealthPulse Advisor</title>
+
+<!-- Fonts: Outfit & Inter for modern typography, Material Symbols for icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+
+<style>
+  :root {
+    --accent: #0d9488;
+    --accent-hover: #0f766e;
+    --accent-light: #f0fdfa;
+    --accent-gradient: linear-gradient(135deg, #0d9488 0%, #047857 100%);
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --border: #e2e8f0;
+    --border-hover: #cbd5e1;
+    --user-bubble: #0d9488;
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 10px 25px -3px rgba(15, 23, 42, 0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* --- Top Navigation Header --- */
+  header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .brand-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+  }
+
+  .brand-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+  }
+
+  .brand-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(13, 148, 136, 0.2);
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #10b981;
+  }
+
+  /* --- Dialogue Chat Log --- */
+  #log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem 1rem;
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    scroll-behavior: smooth;
+  }
+
+  /* Scrollbar Customization */
+  #log::-webkit-scrollbar { width: 6px; }
+  #log::-webkit-scrollbar-track { background: transparent; }
+  #log::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  #log::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+  /* Welcome Banner */
+  .welcome-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 0.5rem;
+    animation: fadeIn 0.4s ease-out;
+  }
+
+  .welcome-card h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+  }
+
+  .welcome-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    max-width: 540px;
+    margin: 0 auto 1rem;
+    line-height: 1.5;
+  }
+
+  .quick-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .chip {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.4rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .chip:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* Chat Message Wrappers */
+  .msg {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 85%;
+    animation: fadeInUp 0.25s ease-out forwards;
+  }
+
+  .msg.user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .msg.agent {
+    align-self: flex-start;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .msg.user .avatar {
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid rgba(13, 148, 136, 0.2);
+  }
+
+  .msg.agent .avatar {
+    background: var(--accent-gradient);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(13, 148, 136, 0.2);
+  }
+
+  .msg-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .sender-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-left: 2px;
+  }
+
+  .msg.user .sender-label {
+    text-align: right;
+    margin-right: 2px;
+  }
+
+  .bubble {
+    padding: 0.75rem 1.05rem;
+    border-radius: 16px;
+    font-size: 0.925rem;
+    line-height: 1.5;
+    word-break: break-word;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .msg.user .bubble {
+    background: var(--user-bubble);
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+    font-weight: 400;
+  }
+
+  .msg.agent .bubble {
+    background: #ffffff;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+  }
+
+  .bubble.rich {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    max-width: 100%;
+  }
+
+  /* --- Input Form Bar --- */
+  .input-container {
+    background: #ffffff;
+    border-top: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  form {
+    display: flex;
+    gap: 0.6rem;
+    max-width: 860px;
+    width: 100%;
+    align-items: center;
+  }
+
+  input {
+    flex: 1;
+    padding: 0.8rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg);
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  input:focus {
+    background: #ffffff;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+  }
+
+  input::placeholder {
+    color: var(--text-muted);
+  }
+
+  button {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(13, 148, 136, 0.25);
+    flex-shrink: 0;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+  }
+
+  button:active {
+    transform: scale(0.96);
+  }
+
+  button .material-symbols-outlined {
+    font-size: 1.25rem;
+    color: #ffffff;
+  }
+
+  /* --- A2UI Cards & Components --- */
+  .a2card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    background: #ffffff;
+    box-shadow: var(--shadow-md);
+    max-width: 100%;
+    transition: border-color 0.2s ease;
+  }
+
+  .a2card:hover {
+    border-color: var(--border-hover);
+  }
+
+  .a2card + .a2card, .a2col > .a2card { margin-top: 0.75rem; }
+  .a2col { display: flex; flex-direction: column; gap: 0.6rem; }
+  .a2row { display: flex; flex-direction: row; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  .a2row.between { justify-content: space-between; }
+  
+  .a2text { margin: 0; line-height: 1.5; color: var(--text-primary); }
+  .a2text.a2-h1 { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text-primary); }
+  .a2text.a2-h2 { font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text-primary); }
+  .a2text.a2-h3 { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); }
+  .a2text.a2-h4 { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+  .a2text.a2-caption { font-size: 0.8rem; color: var(--text-secondary); }
+  
+  .a2divider { border: none; border-top: 1px solid var(--border); margin: 0.6rem 0; width: 100%; }
+  .a2img { max-width: 100%; border-radius: 12px; display: block; border: 1px solid var(--border); }
+  
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-size: 1.25rem;
+    line-height: 1;
+    vertical-align: middle;
+    color: var(--accent);
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <div class="brand-icon">
+      <span class="material-symbols-outlined" style="font-size:1.5rem; color:#fff;">monitoring</span>
+    </div>
+    <div>
+      <div class="brand-title">WealthPulse Advisor</div>
+      <div class="brand-subtitle">Smart Wealth Rebalancing & Wellness Advisory</div>
+    </div>
+  </div>
+  <div class="header-badge">
+    <span class="status-dot"></span>
+    <span>Agent Active</span>
+  </div>
+</header>
+
+<div id="log">
+  <div class="welcome-card" id="welcome">
+    <h2>Welcome to WealthPulse Advisor 👋</h2>
+    <p>Your intelligent assistant for portfolio rebalancing, market analytics, and wellness consultations. Select a suggestion below or type a message to begin.</p>
+    <div class="quick-chips">
+      <div class="chip" onclick="quickSend('Calculate portfolio rebalance')">📊 Portfolio Rebalance</div>
+      <div class="chip" onclick="quickSend('Consult herbal remedies for financial stress')">🌿 Wellness & Herbal Advice</div>
+      <div class="chip" onclick="quickSend('Generate a visual portfolio breakdown chart')">🖼️ Generate Portfolio Visual</div>
+      <div class="chip" onclick="quickSend('What tools can you use?')">💡 Available Capabilities</div>
+    </div>
+  </div>
+</div>
+
+<div class="input-container">
+  <form id="form">
+    <input id="input" placeholder="Ask WealthPulse Advisor..." autocomplete="off" autofocus>
+    <button type="submit" title="Send message">
+      <span class="material-symbols-outlined">send</span>
+    </button>
+  </form>
+</div>
+
+<script>
+const log = document.getElementById("log");
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function bubble(who) {
+  const m = el("div", "msg " + who);
+  
+  // Avatar
+  const avatar = el("div", "avatar");
+  if (who === "user") {
+    avatar.textContent = "You";
+  } else {
+    const icon = el("span", "material-symbols-outlined", "monitoring");
+    icon.style.color = "#fff";
+    icon.style.fontSize = "1.1rem";
+    avatar.appendChild(icon);
+  }
+
+  // Content Column
+  const content = el("div", "msg-content");
+  const label = el("span", "sender-label", who === "user" ? "You" : "WealthPulse Advisor");
+  const b = el("div", "bubble");
+
+  content.appendChild(label);
+  content.appendChild(b);
+  m.appendChild(avatar);
+  m.appendChild(content);
+
+  log.appendChild(m);
+  log.scrollTop = log.scrollHeight;
+  return b;
+}
+
+function quickSend(msg) {
+  input.value = msg;
+  form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+}
+
+/* ----------------------------------------------------------------------------
+ * A2UI mini-renderer (v0.8 Basic Catalog subset).
+ * -------------------------------------------------------------------------- */
+function boundStr(v) {
+  if (v == null) return "";
+  if (typeof v === "string") return v;
+  if (typeof v.literalString === "string") return v.literalString;
+  return "";
+}
+
+function childIds(props) {
+  const ids = [];
+  if (props && typeof props.child === "string") ids.push(props.child);
+  const ch = props && props.children;
+  if (ch && Array.isArray(ch.explicitList)) for (const c of ch.explicitList) if (typeof c === "string") ids.push(c);
+  return ids;
+}
+
+function iconName(n) {
+  return String(n || "").replace(/([a-z0-9])([A-Z])/g, "$1_$2").replace(/\s+/g, "_").toLowerCase();
+}
+
+function buildNode(id, comps, seen) {
+  if (!id || seen.has(id)) return null;
+  seen.add(id);
+  const spec = comps[id];
+  if (!spec || typeof spec !== "object") return null;
+  const type = Object.keys(spec)[0];
+  const props = spec[type] || {};
+  const kids = () => childIds(props).map(cid => buildNode(cid, comps, seen)).filter(Boolean);
+
+  switch (type) {
+    case "Card": {
+      const d = el("div", "a2card"); kids().forEach(n => d.appendChild(n)); return d;
+    }
+    case "Column":
+    case "List": {
+      const horizontal = type === "List" && props.direction === "horizontal";
+      const d = el("div", horizontal ? "a2row" : "a2col"); kids().forEach(n => d.appendChild(n)); return d;
+    }
+    case "Row": {
+      const d = el("div", "a2row" + (props.distribution === "spaceBetween" ? " between" : ""));
+      kids().forEach(n => d.appendChild(n)); return d;
+    }
+    case "Text": {
+      const t = el("div", "a2text");
+      const hint = String(props.usageHint || "body").toLowerCase();
+      if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(hint)) t.classList.add("a2-" + hint);
+      else if (hint === "caption") t.classList.add("a2-caption");
+      t.textContent = boundStr(props.text);
+      return t;
+    }
+    case "Divider":
+      return el("hr", "a2divider");
+    case "Image": {
+      const src = boundStr(props.url || props.src);
+      if (!/^https?:\/\//i.test(src)) return null;
+      const img = el("img", "a2img"); img.src = src; img.alt = boundStr(props.alt) || ""; return img;
+    }
+    case "Icon": {
+      const s = el("span", "material-symbols-outlined"); s.textContent = iconName(boundStr(props.name) || props.name); return s;
+    }
+    default:
+      return null;
+  }
+}
+
+function renderSurface(messages, container) {
+  const comps = {};
+  const roots = [];
+  for (const m of messages) {
+    if (m.beginRendering && typeof m.beginRendering.root === "string") roots.push(m.beginRendering.root);
+    const su = m.surfaceUpdate;
+    if (su && Array.isArray(su.components)) for (const c of su.components) if (c && c.id && c.component) comps[c.id] = c.component;
+  }
+  let rootIds = roots.filter(r => comps[r]);
+  if (rootIds.length === 0) {
+    const referenced = new Set();
+    for (const id in comps) { const spec = comps[id]; childIds(spec[Object.keys(spec)[0]] || {}).forEach(c => referenced.add(c)); }
+    rootIds = Object.keys(comps).filter(id => !referenced.has(id));
+  }
+  let drew = false;
+  for (const rid of rootIds) { const node = buildNode(rid, comps, new Set()); if (node) { container.appendChild(node); drew = true; } }
+  return drew;
+}
+
+function flattenText(messages) {
+  const out = [];
+  for (const m of messages) {
+    const su = m.surfaceUpdate;
+    if (su && Array.isArray(su.components)) for (const c of su.components) if (c && c.component && c.component.Text) out.push(boundStr(c.component.Text.text));
+  }
+  return out.join("\n").trim();
+}
+
+function renderReply(b, parts) {
+  b.textContent = "";
+  const texts = parts.filter(p => p && (p.kind === "text" || (!p.kind && p.text))).map(p => p.text || "");
+  const a2ui = parts.filter(p => p && p.kind === "a2ui" && p.data).map(p => p.data);
+
+  const textStr = texts.join("\n").trim();
+  if (textStr) b.appendChild(el("div", null, textStr));
+
+  if (a2ui.length) {
+    b.classList.add("rich");
+    if (!renderSurface(a2ui, b)) b.appendChild(el("div", null, flattenText(a2ui) || "(no card content)"));
+  }
+  if (!b.childNodes.length) b.textContent = "(no response)";
+  log.scrollTop = log.scrollHeight;
+}
+
+form.addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  const text = input.value.trim();
+  if (!text) return;
+
+  // Hide welcome banner on first prompt
+  const welcome = document.getElementById("welcome");
+  if (welcome) welcome.style.display = "none";
+
+  bubble("user").textContent = text;
+  input.value = "";
+  const b = bubble("agent"); b.textContent = "…";
+
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+    const raw = await res.text();
+    let data;
+    try { data = JSON.parse(raw); }
+    catch { throw new Error(`Server returned non-JSON (HTTP ${res.status}). ${raw.slice(0, 300)}`); }
+    renderReply(b, data.parts || []);
+  } catch (e) {
+    b.textContent = "Error: " + e.message;
+  }
+});
+</script>
+</body>
+</html>
