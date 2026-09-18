@@ -215,6 +215,7 @@ __pycache__/
 *.pyc
 node_modules/
 .video_tmp/
+video_temp/
 .DS_Store
 .env
 *.env
@@ -223,3 +224,4 @@ application_default_credentials.json
 service-account*.json
 # Keep the demo GIF (README embeds it); ignore the large raw recording.
 *.webm
+

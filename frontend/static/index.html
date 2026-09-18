@@ -86,6 +86,38 @@
     font-weight: 400;
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+  }
+
+  .export-btn:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(13, 148, 136, 0.15);
+  }
+
   .header-badge {
     display: inline-flex;
     align-items: center;
@@ -106,6 +138,7 @@
     border-radius: 50%;
     box-shadow: 0 0 6px #10b981;
   }
+
 
   /* --- Dialogue Chat Log --- */
   #log {
@@ -281,7 +314,7 @@
     justify-content: center;
   }
 
-  form {
+  .input-container form {
     display: flex;
     gap: 0.6rem;
     max-width: 860px;
@@ -289,7 +322,7 @@
     align-items: center;
   }
 
-  input {
+  .input-container input {
     flex: 1;
     padding: 0.8rem 1.1rem;
     border: 1px solid var(--border);
@@ -302,17 +335,53 @@
     transition: all 0.2s ease;
   }
 
-  input:focus {
+  .input-container input:focus {
     background: #ffffff;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
   }
 
-  input::placeholder {
+  .input-container input::placeholder {
     color: var(--text-muted);
   }
 
+  /* Modal Form Clean Override */
+  #holding-form {
+    display: block !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  #holding-form input, #holding-form select {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    flex: none !important;
+    border-radius: 8px !important;
+    padding: 0.55rem 0.75rem !important;
+    border: 1px solid #cbd5e1 !important;
+    font-size: 0.85rem !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  #holding-form button {
+    width: auto !important;
+    height: auto !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+  }
+
+
+  /* Button Reset & Send Button */
   button {
+    font-family: inherit;
+  }
+
+  #send-btn {
     width: 44px;
     height: 44px;
     border: none;
@@ -328,10 +397,81 @@
     flex-shrink: 0;
   }
 
-  button:hover {
+  #send-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
   }
+
+  /* Holdings Action Buttons */
+  .action-btn-edit {
+    background: #f0fdfa !important;
+    border: 1px solid #99f6e4 !important;
+    color: #0d9488 !important;
+    padding: 0.35rem 0.65rem !important;
+    border-radius: 6px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: none !important;
+  }
+  .action-btn-edit:hover {
+    background: #ccfbf1 !important;
+    border-color: #5eead4 !important;
+  }
+
+  .action-btn-delete {
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    color: #dc2626 !important;
+    padding: 0.35rem 0.65rem !important;
+    border-radius: 6px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    white-space: nowrap !important;
+    transition: all 0.15s ease !important;
+    width: auto !important;
+    height: auto !important;
+    box-shadow: none !important;
+  }
+  .action-btn-delete:hover {
+    background: #fee2e2 !important;
+    border-color: #fca5a5 !important;
+  }
+
+  .btn-add-position {
+    background: #0d9488 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 0.45rem 0.85rem !important;
+    border-radius: 8px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    white-space: nowrap !important;
+    box-shadow: 0 2px 4px rgba(13,148,136,0.2) !important;
+    transition: all 0.15s ease !important;
+    width: auto !important;
+    height: auto !important;
+  }
+  .btn-add-position:hover {
+    background: #0f766e !important;
+    transform: translateY(-1px) !important;
+  }
+
 
   button:active {
     transform: scale(0.96);
@@ -380,6 +520,55 @@
     color: var(--accent);
   }
 
+  /* Voice Dictation & Pulse Animation */
+  @keyframes mic-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5); }
+    70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+  }
+
+  .listening-pulse {
+    animation: mic-pulse 1.4s infinite !important;
+  }
+
+  #mic-btn {
+    width: 44px !important;
+    height: 44px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    color: var(--accent) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    flex-shrink: 0 !important;
+  }
+  #mic-btn:hover {
+    background: var(--accent-light) !important;
+    border-color: var(--accent) !important;
+  }
+
+  .speak-btn-bubble {
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    color: #0d9488;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.4rem;
+    transition: all 0.15s ease;
+  }
+  .speak-btn-bubble:hover {
+    background: #ccfbf1;
+  }
+
   /* Animations */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-4px); }
@@ -391,6 +580,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
+
 </head>
 <body>
 
@@ -404,11 +594,30 @@
       <div class="brand-subtitle">Smart Wealth Rebalancing & Wellness Advisory</div>
     </div>
   </div>
-  <div class="header-badge">
-    <span class="status-dot"></span>
-    <span>Agent Active</span>
+  <div class="header-actions">
+    <button class="export-btn" id="voice-toggle-btn" onclick="toggleAutoReadAloud()" title="Toggle Auto Voice Read Aloud">
+      <span class="material-symbols-outlined" id="voice-toggle-icon" style="font-size:1.1rem;color:#0d9488;">volume_up</span>
+      <span id="voice-toggle-label">Auto Voice: ON</span>
+    </button>
+    <button class="export-btn" onclick="quickSend('Show my holdings')" title="Manage Holdings Table">
+      <span class="material-symbols-outlined" style="font-size:1.1rem;color:#0d9488;">account_balance_wallet</span>
+      <span>Holdings Table</span>
+    </button>
+    <button class="export-btn" onclick="exportPDF()" title="Download PDF Report">
+      <span class="material-symbols-outlined" style="font-size:1.1rem;color:#0d9488;">picture_as_pdf</span>
+      <span>Export PDF</span>
+    </button>
+    <button class="export-btn" onclick="exportCSV()" title="Download Excel / CSV">
+      <span class="material-symbols-outlined" style="font-size:1.1rem;color:#047857;">table_chart</span>
+      <span>Export Excel/CSV</span>
+    </button>
+    <div class="header-badge">
+      <span class="status-dot"></span>
+      <span>Agent Active</span>
+    </div>
   </div>
 </header>
+
 
 <div id="log">
   <div class="welcome-card" id="welcome">
@@ -416,21 +625,27 @@
     <p>Your intelligent assistant for portfolio rebalancing, market analytics, and wellness consultations. Select a suggestion below or type a message to begin.</p>
     <div class="quick-chips">
       <div class="chip" onclick="quickSend('Calculate portfolio rebalance')">📊 Portfolio Rebalance</div>
+      <div class="chip" onclick="quickSend('Show my holdings')">💼 Manage Holdings</div>
       <div class="chip" onclick="quickSend('Consult herbal remedies for financial stress')">🌿 Wellness & Herbal Advice</div>
       <div class="chip" onclick="quickSend('Generate a visual portfolio breakdown chart')">🖼️ Generate Portfolio Visual</div>
-      <div class="chip" onclick="quickSend('What tools can you use?')">💡 Available Capabilities</div>
+      <div class="chip" onclick="quickSend('What tools can you use?')">💡 Capabilities</div>
     </div>
   </div>
 </div>
 
+
 <div class="input-container">
   <form id="form">
+    <button type="button" id="mic-btn" onclick="toggleVoiceDictation()" title="Click to speak (Voice Dictation)">
+      <span class="material-symbols-outlined" id="mic-icon">mic</span>
+    </button>
     <input id="input" placeholder="Ask WealthPulse Advisor..." autocomplete="off" autofocus>
-    <button type="submit" title="Send message">
+    <button type="submit" id="send-btn" title="Send message">
       <span class="material-symbols-outlined">send</span>
     </button>
   </form>
 </div>
+
 
 <script>
 const log = document.getElementById("log");
@@ -573,21 +788,194 @@ function flattenText(messages) {
   return out.join("\n").trim();
 }
 
+function formatMarkdown(text) {
+  if (!text) return "";
+  
+  // If the text contains HTML markup (e.g. interactive visual card widget), preserve HTML elements!
+  const hasHtml = /<\/?(div|span|h[1-6]|p|input|label|button|table|tr|td|th|tbody|thead|pre|code|strong|em|br)\b/i.test(text);
+
+  let html = text;
+  if (!hasHtml) {
+    html = html
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  // Code blocks
+  html = html.replace(/```([\s\S]*?)```/g, '<pre style="background:#0f172a;color:#38bdf8;padding:0.75rem 1rem;border-radius:8px;font-family:monospace;font-size:0.85rem;overflow-x:auto;margin:0.5rem 0;"><code>$1</code></pre>');
+
+  // Headers
+  html = html.replace(/^### (.*$)/gim, '<h4 style="margin-top:0.6rem;margin-bottom:0.3rem;font-weight:700;color:var(--text-primary);">$1</h4>');
+  html = html.replace(/^## (.*$)/gim, '<h3 style="margin-top:0.8rem;margin-bottom:0.4rem;font-weight:700;color:var(--accent);">$1</h3>');
+  html = html.replace(/^# (.*$)/gim, '<h2 style="margin-top:1rem;margin-bottom:0.5rem;font-weight:700;">$1</h2>');
+
+  // Bold & Italic
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--text-primary);">$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  // Bullet items
+  html = html.replace(/^[\•\-\*] (.*$)/gim, '<div style="margin-left:0.5rem;margin-bottom:0.3rem;display:flex;gap:0.4rem;"><span style="color:var(--accent);">•</span><div>$1</div></div>');
+
+  // Newlines to line breaks (only if not an HTML document block)
+  if (!hasHtml) {
+    html = html.replace(/\n/g, '<br>');
+  }
+  return html;
+}
+
+
+/* ----------------------------------------------------------------------------
+ * Voice Capabilities (Speech-to-Text Dictation & Text-to-Speech Output)
+ * -------------------------------------------------------------------------- */
+let isListening = false;
+let recognition = null;
+let autoReadAloud = true;
+
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+
+  recognition.onstart = function() {
+    isListening = true;
+    const btn = document.getElementById("mic-btn");
+    const icon = document.getElementById("mic-icon");
+    if (btn) {
+      btn.style.background = "#fef2f2";
+      btn.style.borderColor = "#fecaca";
+      btn.classList.add("listening-pulse");
+    }
+    if (icon) {
+      icon.textContent = "mic";
+      icon.style.color = "#dc2626";
+    }
+    input.placeholder = "🎙️ Listening... Speak now...";
+  };
+
+  recognition.onresult = function(event) {
+    let transcript = "";
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+    }
+    input.value = transcript;
+  };
+
+  recognition.onerror = function(event) {
+    console.warn("Speech recognition error:", event.error);
+    stopVoiceDictation();
+  };
+
+  recognition.onend = function() {
+    stopVoiceDictation();
+  };
+}
+
+function toggleVoiceDictation() {
+  if (!recognition) {
+    alert("Speech recognition is not supported natively in this browser window. You can type your request directly into the input bar.");
+    return;
+  }
+  if (isListening) {
+    recognition.stop();
+  } else {
+    try {
+      recognition.start();
+    } catch (err) {
+      console.error("Dictation start error:", err);
+    }
+  }
+}
+
+function stopVoiceDictation() {
+  isListening = false;
+  const btn = document.getElementById("mic-btn");
+  const icon = document.getElementById("mic-icon");
+  if (btn) {
+    btn.style.background = "#ffffff";
+    btn.style.borderColor = "var(--border)";
+    btn.classList.remove("listening-pulse");
+  }
+  if (icon) {
+    icon.textContent = "mic";
+    icon.style.color = "var(--accent)";
+  }
+  input.placeholder = "Ask WealthPulse Advisor...";
+}
+
+function toggleAutoReadAloud() {
+  autoReadAloud = !autoReadAloud;
+  const icon = document.getElementById("voice-toggle-icon");
+  const label = document.getElementById("voice-toggle-label");
+  if (autoReadAloud) {
+    if (icon) { icon.textContent = "volume_up"; icon.style.color = "#0d9488"; }
+    if (label) { label.textContent = "Auto Voice: ON"; }
+  } else {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    if (icon) { icon.textContent = "volume_off"; icon.style.color = "#64748b"; }
+    if (label) { label.textContent = "Auto Voice: OFF"; }
+  }
+}
+
+function speakText(rawText) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel(); // Cancel any ongoing speech
+  
+  // Strip HTML elements & formatting
+  const clean = rawText.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!clean) return;
+
+  const utterance = new SpeechSynthesisUtterance(clean.substring(0, 350));
+  utterance.rate = 1.0;
+  utterance.pitch = 1.0;
+
+  const voices = window.speechSynthesis.getVoices();
+  const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Samantha') || v.name.includes('Daniel')));
+  if (preferredVoice) utterance.voice = preferredVoice;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+function speakBubbleText(btnElem) {
+  const bubble = btnElem.closest('.bubble');
+  if (bubble) speakText(bubble.innerText);
+}
+
+
 function renderReply(b, parts) {
   b.textContent = "";
   const texts = parts.filter(p => p && (p.kind === "text" || (!p.kind && p.text))).map(p => p.text || "");
   const a2ui = parts.filter(p => p && p.kind === "a2ui" && p.data).map(p => p.data);
 
-  const textStr = texts.join("\n").trim();
-  if (textStr) b.appendChild(el("div", null, textStr));
+  if (texts.length) {
+    const textDiv = el("div");
+    textDiv.innerHTML = formatMarkdown(texts.join("\n\n"));
+    b.appendChild(textDiv);
+  }
 
   if (a2ui.length) {
     b.classList.add("rich");
     if (!renderSurface(a2ui, b)) b.appendChild(el("div", null, flattenText(a2ui) || "(no card content)"));
   }
   if (!b.childNodes.length) b.textContent = "(no response)";
+
+  // Add Read Aloud button to agent bubble
+  const speakBtn = document.createElement("button");
+  speakBtn.className = "speak-btn-bubble";
+  speakBtn.onclick = function() { speakBubbleText(this); };
+  speakBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size:0.95rem;color:#0d9488;">volume_up</span> <span>Read Aloud</span>`;
+  b.appendChild(speakBtn);
+
+  // Trigger auto voice read aloud if enabled
+  if (autoReadAloud) {
+    speakText(b.innerText);
+  }
+
   log.scrollTop = log.scrollHeight;
 }
+
+
 
 form.addEventListener("submit", async (ev) => {
   ev.preventDefault();
@@ -614,9 +1002,258 @@ form.addEventListener("submit", async (ev) => {
     catch { throw new Error(`Server returned non-JSON (HTTP ${res.status}). ${raw.slice(0, 300)}`); }
     renderReply(b, data.parts || []);
   } catch (e) {
+
     b.textContent = "Error: " + e.message;
   }
 });
+
+function exportPDF() {
+
+  const printWin = window.open('', '_blank');
+  const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  printWin.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>WealthPulse Advisor - Portfolio Rebalance Report</title>
+      <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; padding: 2.5rem; color: #0f172a; line-height: 1.6; max-width: 800px; margin: 0 auto; }
+        .header { border-bottom: 2px solid #0d9488; padding-bottom: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-end; }
+        .brand { font-size: 1.6rem; font-weight: 700; color: #0d9488; letter-spacing: -0.5px; }
+        .sub { font-size: 0.85rem; color: #475569; }
+        .summary-card { background: #f0fdfa; border: 1px solid #99f6e4; padding: 1.2rem; border-radius: 10px; margin-bottom: 1.5rem; }
+        .val { font-size: 1.4rem; font-weight: 700; color: #0f766e; margin-top: 0.3rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 1.5rem; }
+        th, td { border: 1px solid #cbd5e1; padding: 0.65rem 0.85rem; text-align: left; font-size: 0.9rem; }
+        th { background: #f8fafc; font-weight: 600; color: #0f172a; }
+        .action-item { background: #f8fafc; border-left: 4px solid #0d9488; padding: 0.75rem 1rem; margin-bottom: 0.6rem; border-radius: 0 6px 6px 0; }
+        .footer { margin-top: 3rem; text-align: center; font-size: 0.8rem; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 1rem; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <div>
+          <div class="brand">WealthPulse Advisor</div>
+          <div class="sub">Smart Wealth Rebalancing & Advisory Report</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-weight:600;font-size:0.9rem;">Date: ${dateStr}</div>
+          <div class="sub">Report ID: WP-PORT-8821</div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div style="font-size:0.9rem;font-weight:600;color:#0d9488;text-transform:uppercase;letter-spacing:0.5px;">Portfolio Overview</div>
+        <div class="val">Total Valuation: $122,145.50 USD</div>
+        <div style="font-size:0.875rem;color:#334155;margin-top:0.4rem;">Target Allocation: <strong>80.0% Equities / 20.0% Fixed Income</strong></div>
+      </div>
+
+      <h3 style="color:#0f172a;margin-bottom:0.5rem;">Current Asset Holdings</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Asset Name</th>
+            <th>Category</th>
+            <th>Shares</th>
+            <th>Current Price</th>
+            <th>Total Value</th>
+            <th>Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>VOO</td><td>Vanguard S&P 500 ETF</td><td>US Equity</td><td>150.0</td><td>$480.25</td><td>$72,037.50</td><td>58.98%</td></tr>
+          <tr><td>QQQ</td><td>Invesco QQQ Trust</td><td>US Equity</td><td>80.0</td><td>$445.10</td><td>$35,608.00</td><td>29.15%</td></tr>
+          <tr><td>BND</td><td>Vanguard Total Bond Market ETF</td><td>Fixed Income</td><td>200.0</td><td>$72.50</td><td>$14,500.00</td><td>11.87%</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="color:#0f172a;margin-bottom:0.5rem;">Rebalance Trade Execution Plan</h3>
+      <div class="action-item"><strong>SELL $9,929.10</strong> in Equities to reduce equity allocation to target 80.0%.</div>
+      <div class="action-item"><strong>BUY $9,929.10</strong> in Fixed Income / Bonds to reach target 20.0%.</div>
+
+      <div class="footer">
+        WealthPulse Advisor • Generated automatically by AI Wealth Rebalancing Agent
+      </div>
+      \x3Cscript>window.onload = function() { window.print(); };\x3C/script>
+    </body>
+    </html>
+  `);
+  printWin.document.close();
+}
+
+
+function exportCSV() {
+  const csvContent = 
+`WealthPulse Advisor - Portfolio Rebalance & Holdings Report
+Generated Date,${new Date().toISOString().split('T')[0]}
+Total Portfolio Value (USD),122145.50
+
+ASSET CLASS ALLOCATION
+Asset Class,Current Value (USD),Current %,Target %,Drift %
+Equities,107645.50,88.13%,80.00%,+8.13%
+Fixed Income / Bonds,14500.00,11.87%,20.00%,-8.13%
+
+PORTFOLIO HOLDINGS DETAIL
+Ticker,Name,Asset Class,Shares,Current Price (USD),Total Value (USD),Portfolio Weight %
+VOO,Vanguard S&P 500 ETF,US Equity,150.0,480.25,72037.50,58.98%
+QQQ,Invesco QQQ Trust,US Equity,80.0,445.10,35608.00,29.15%
+BND,Vanguard Total Bond Market ETF,Fixed Income,200.0,72.50,14500.00,11.87%
+
+RECOMMENDED REBALANCE ORDERS
+Action,Asset Class,Amount (USD),Target %
+SELL,Equities,9929.10,80.00%
+BUY,Fixed Income / Bonds,9929.10,20.00%
+`;
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.setAttribute("href", url);
+  link.setAttribute("download", `WealthPulse_Portfolio_Report_${new Date().toISOString().split('T')[0]}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function updateInteractiveChart(targetEq, sliderElem) {
+  targetEq = parseFloat(targetEq);
+  const targetBond = 100 - targetEq;
+
+  const card = sliderElem ? sliderElem.closest('.visual-portfolio-card') : document;
+
+  const label = card ? card.querySelector('#slider-target-label') : document.getElementById("slider-target-label");
+  if (label) label.textContent = `${targetEq}% Equity / ${targetBond}% Bond`;
+
+  const totalVal = 122145.50;
+  const currentEquityVal = 107645.50;
+  const currentBondVal = 14500.00;
+
+  const targetEquityVal = totalVal * (targetEq / 100.0);
+  const targetBondVal = totalVal * (targetBond / 100.0);
+
+  const equityDiff = targetEquityVal - currentEquityVal;
+  const bondDiff = targetBondVal - currentBondVal;
+
+  const recsContainer = card ? card.querySelector('#trade-recs-text') : document.getElementById("trade-recs-text");
+  if (recsContainer) {
+    let eqText = equityDiff > 0 
+      ? `• <strong>BUY $${equityDiff.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</strong> in Equities to reach target ${targetEq}%.`
+      : `• <strong>SELL $${Math.abs(equityDiff).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</strong> in Equities to reduce to target ${targetEq}%.`;
+    
+    let bdText = bondDiff > 0 
+      ? `• <strong>BUY $${bondDiff.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</strong> in Fixed Income / Bonds to reach target ${targetBond}%.`
+      : `• <strong>SELL $${Math.abs(bondDiff).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2})}</strong> in Fixed Income / Bonds to reduce to target ${targetBond}%.`;
+
+    recsContainer.innerHTML = `${eqText}<br>${bdText}`;
+  }
+}
+
+function openAddHoldingModal() {
+  document.getElementById("modal-title").textContent = "➕ Add Portfolio Position";
+  document.getElementById("h-ticker").value = "";
+  document.getElementById("h-ticker").readOnly = false;
+  document.getElementById("h-name").value = "";
+  document.getElementById("h-class").value = "US Equity";
+  document.getElementById("h-shares").value = "";
+  document.getElementById("h-price").value = "";
+  const modal = document.getElementById("holding-modal");
+  if (modal) modal.style.display = "flex";
+}
+
+function editHoldingModal(ticker, name, assetClass, shares, price, targetAlloc) {
+  document.getElementById("modal-title").textContent = "✏️ Edit Position: " + ticker;
+  document.getElementById("h-ticker").value = ticker;
+  document.getElementById("h-ticker").readOnly = true;
+  document.getElementById("h-name").value = name;
+  document.getElementById("h-class").value = assetClass || "US Equity";
+  document.getElementById("h-shares").value = shares;
+  document.getElementById("h-price").value = price;
+  const modal = document.getElementById("holding-modal");
+  if (modal) modal.style.display = "flex";
+}
+
+function closeHoldingModal() {
+  const modal = document.getElementById("holding-modal");
+  if (modal) modal.style.display = "none";
+}
+
+async function saveHoldingSubmit(ev) {
+  ev.preventDefault();
+  const ticker = document.getElementById("h-ticker").value.trim().toUpperCase();
+  const name = document.getElementById("h-name").value.trim();
+  const asset_class = document.getElementById("h-class").value;
+  const shares = parseFloat(document.getElementById("h-shares").value);
+  const current_price = parseFloat(document.getElementById("h-price").value);
+
+  try {
+    const res = await fetch("/api/holdings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ticker, name, asset_class, shares, current_price, target_allocation_pct: 0 })
+    });
+    const data = await res.json();
+    closeHoldingModal();
+    quickSend("Show my holdings");
+  } catch (err) {
+    alert("Failed to save position: " + err.message);
+  }
+}
+
+async function deleteHolding(ticker) {
+  if (!confirm(`Are you sure you want to delete position '${ticker}'?`)) return;
+  try {
+    const res = await fetch(`/api/holdings/${ticker}`, { method: "DELETE" });
+    const data = await res.json();
+    quickSend("Show my holdings");
+  } catch (err) {
+    alert("Failed to delete position: " + err.message);
+  }
+}
 </script>
+
+<div id="holding-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.5); backdrop-filter:blur(4px); z-index:9999; align-items:center; justify-content:center;">
+  <div style="background:#ffffff; width:90%; max-width:440px; border-radius:16px; padding:1.5rem; box-shadow:0 20px 25px -5px rgba(0,0,0,0.1); border:1px solid #e2e8f0; font-family:'Inter',sans-serif;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:1px solid #f1f5f9; padding-bottom:0.75rem;">
+      <h3 id="modal-title" style="margin:0; font-size:1.1rem; color:#0f172a; font-weight:700;">➕ Add Portfolio Position</h3>
+      <button onclick="closeHoldingModal()" style="background:none; border:none; font-size:1.2rem; cursor:pointer; color:#64748b;">✕</button>
+    </div>
+    <form id="holding-form" onsubmit="saveHoldingSubmit(event)">
+      <div style="margin-bottom:0.8rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:600; color:#475569; margin-bottom:0.2rem;">Ticker Symbol</label>
+        <input id="h-ticker" required placeholder="e.g. NVDA" style="width:100%; padding:0.5rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem; font-weight:600; text-transform:uppercase;">
+      </div>
+      <div style="margin-bottom:0.8rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:600; color:#475569; margin-bottom:0.2rem;">Asset Name</label>
+        <input id="h-name" required placeholder="e.g. NVIDIA Corporation" style="width:100%; padding:0.5rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem;">
+      </div>
+      <div style="margin-bottom:0.8rem;">
+        <label style="display:block; font-size:0.8rem; font-weight:600; color:#475569; margin-bottom:0.2rem;">Asset Category</label>
+        <select id="h-class" style="width:100%; padding:0.5rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem;">
+          <option value="US Equity">US Equity</option>
+          <option value="International Equity">International Equity</option>
+          <option value="Fixed Income">Fixed Income / Bonds</option>
+          <option value="Cash">Cash / Money Market</option>
+        </select>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:1.2rem;">
+        <div>
+          <label style="display:block; font-size:0.8rem; font-weight:600; color:#475569; margin-bottom:0.2rem;">Shares Owned</label>
+          <input id="h-shares" type="number" step="any" required placeholder="e.g. 15.0" style="width:100%; padding:0.5rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem;">
+        </div>
+        <div>
+          <label style="display:block; font-size:0.8rem; font-weight:600; color:#475569; margin-bottom:0.2rem;">Price per Share ($)</label>
+          <input id="h-price" type="number" step="any" required placeholder="e.g. 118.50" style="width:100%; padding:0.5rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.85rem;">
+        </div>
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.6rem;">
+        <button type="button" onclick="closeHoldingModal()" style="background:#f1f5f9; border:1px solid #cbd5e1; color:#475569; padding:0.5rem 1rem; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer;">Cancel</button>
+        <button type="submit" style="background:#0d9488; border:none; color:#ffffff; padding:0.5rem 1rem; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; box-shadow:0 2px 4px rgba(13,148,136,0.2);">Save Position</button>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>
+
+
